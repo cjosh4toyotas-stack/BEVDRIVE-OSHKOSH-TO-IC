@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bZ Drive Plan — Oshkosh to Iowa City</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#EB0A1E;
+    --ink:#1A1A1A;
+    --mut:#6B6B6B;
+    --line:#DDDAD6;
+    --panel:#F5F4F2;
+    --ok:#1E7A3C;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Archivo',system-ui,sans-serif;
+    color:var(--ink);
+    background:#fff;
+    line-height:1.45;
+    padding-bottom:84px; /* room for sticky call bar */
+  }
+  .wrap{max-width:560px;margin:0 auto;padding:0 18px}
+
+  /* ---------- header ---------- */
+  header{border-bottom:4px solid var(--red);padding:22px 0 18px}
+  .dealer{font-size:13px;font-weight:800;letter-spacing:.04em;color:var(--red)}
+  h1{font-size:26px;font-weight:800;line-height:1.15;margin-top:6px}
+  .route-sum{margin-top:10px;font-size:15px;color:var(--mut)}
+  .route-sum strong{color:var(--ink);font-weight:600}
+  .reassure{
+    margin-top:14px;background:var(--panel);border-left:4px solid var(--ok);
+    padding:12px 14px;font-size:15px;border-radius:0 8px 8px 0;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    min-height:52px;padding:12px 16px;border-radius:10px;
+    font-size:16px;font-weight:600;text-decoration:none;
+    border:none;cursor:pointer;width:100%;
+  }
+  .btn-red{background:var(--red);color:#fff}
+  .btn-red:active{background:#c00818}
+  .btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-ghost:active{background:var(--panel)}
+  .btn svg{flex:none}
+  .btn-row{display:flex;gap:10px}
+  .btn-row .btn{flex:1}
+
+  /* ---------- checklist ---------- */
+  section{padding:26px 0 6px}
+  h2{font-size:20px;font-weight:800;line-height:1.2}
+  .kicker{font-size:14px;color:var(--mut);margin-top:2px}
+  .check{list-style:none;margin-top:14px}
+  .check li{margin-bottom:8px}
+  .check label{
+    display:flex;gap:12px;align-items:flex-start;background:var(--panel);
+    border-radius:10px;padding:13px 14px;font-size:15.5px;cursor:pointer;
+  }
+  .check input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--ok)}
+  .check input:checked + span{color:var(--mut);text-decoration:line-through}
+  .check .apps{display:flex;gap:8px;margin-top:8px}
+  .check .apps a{
+    font-size:14px;font-weight:600;color:var(--red);text-decoration:none;
+    border:1.5px solid var(--red);border-radius:8px;padding:7px 12px;
+  }
+
+  /* ---------- route spine ---------- */
+  .legs{position:relative;margin-top:18px;padding-left:34px}
+  .legs::before{
+    content:"";position:absolute;left:10px;top:8px;bottom:8px;width:4px;
+    background:repeating-linear-gradient(to bottom,var(--ink) 0 14px,transparent 14px 24px);
+    border-radius:2px;
+  }
+  .leg{position:relative;padding-bottom:30px}
+  .leg:last-child{padding-bottom:6px}
+  .dot{
+    position:absolute;left:-34px;top:2px;width:24px;height:24px;border-radius:50%;
+    background:#fff;border:4px solid var(--ink);
+  }
+  .dot.charge{border-color:var(--red);background:var(--red)}
+  .dot.charge::after{
+    content:"";position:absolute;inset:0;display:block;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>') center/12px no-repeat;
+  }
+  .dot.finish{border-color:var(--ok);background:var(--ok)}
+  .leg-miles{font-size:13.5px;font-weight:600;color:var(--mut)}
+  .leg h3{font-size:19px;font-weight:800;margin-top:2px;line-height:1.2}
+  .leg .addr{font-size:15px;color:var(--mut);margin-top:2px}
+  .leg .directions{font-size:15.5px;margin-top:10px}
+  .leg .battery{
+    display:flex;align-items:center;gap:10px;margin-top:12px;
+    font-size:14.5px;font-weight:600;
+  }
+  .gauge{flex:1;height:12px;background:var(--line);border-radius:6px;overflow:hidden;position:relative}
+  .gauge i{display:block;height:100%;background:var(--ok);border-radius:6px}
+  .leg .btn{margin-top:12px}
+  .steps{margin-top:12px;list-style:none}
+  .steps li{
+    display:flex;gap:10px;font-size:15.5px;margin-bottom:8px;
+  }
+  .steps li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--red);margin-top:8px}
+  .warn{
+    margin-top:12px;background:#FDECEE;border-left:4px solid var(--red);
+    padding:12px 14px;font-size:15px;border-radius:0 8px 8px 0;
+  }
+  .warn strong{color:var(--red)}
+
+  /* ---------- rules ---------- */
+  .rules{list-style:none;margin-top:14px}
+  .rules li{
+    display:flex;gap:12px;background:var(--panel);border-radius:10px;
+    padding:13px 14px;font-size:15.5px;margin-bottom:8px;align-items:flex-start;
+  }
+  .rules .n{
+    flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;
+    font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px;
+  }
+
+  footer{padding:26px 0 20px;font-size:14px;color:var(--mut)}
+  footer a{color:var(--red);font-weight:600;text-decoration:none}
+
+  /* ---------- sticky call bar ---------- */
+  .callbar{
+    position:fixed;left:0;right:0;bottom:0;background:var(--ink);
+    padding:10px 18px calc(10px + env(safe-area-inset-bottom));z-index:10;
+  }
+  .callbar .inner{max-width:560px;margin:0 auto;display:flex;gap:10px}
+  .callbar a{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+    min-height:48px;border-radius:9px;font-size:15.5px;font-weight:600;text-decoration:none;
+  }
+  .callbar .call{background:var(--red);color:#fff}
+  .callbar .text{background:transparent;color:#fff;border:1.5px solid #fff}
+
+  @media (prefers-reduced-motion:no-preference){
+    .check label{transition:opacity .15s}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="dealer">McGRATH TOYOTA OF IOWA CITY</div>
+    <h1>Drive plan: 2026 bZ Limited<br>Oshkosh&nbsp;&rarr;&nbsp;Iowa City</h1>
+    <p class="route-sum"><strong>~290 miles &middot; about 5&frac12; hours with stops.</strong> Two charging stops, both at Hy-Vee stores with restrooms and food. The car plugs straight in — no adapter.</p>
+    <div class="reassure">This plan keeps a <b>60+ mile cushion in the battery at every point</b> of the drive. Follow the steps in order and you can't get stranded.</div>
+  </div>
+</header>
+
+<section id="before">
+  <div class="wrap">
+    <h2>Before leaving the Oshkosh lot</h2>
+    <p class="kicker">Five minutes. Do these on the lot's wifi, not at a charger.</p>
+    <ul class="check">
+      <li><label><input type="checkbox"><span>Download the <b>Tesla app</b>, create a free account, add a credit card under Settings &rarr; Payment. This is how you start and pay for both charging stops.
+        <span class="apps">
+          <a href="https://apps.apple.com/us/app/tesla/id582007913">iPhone app</a>
+          <a href="https://play.google.com/store/apps/details?id=com.teslamotors.tesla">Android app</a>
+        </span>
+      </span></label></li>
+      <li><label><input type="checkbox"><span>Battery reads <b>100%</b>. Under 90%? Have Bergstrom top it up before you leave.</span></label></li>
+      <li><label><input type="checkbox"><span>Find the charge port: <b>passenger-side front fender</b>. Press the door to open it.</span></label></li>
+      <li><label><input type="checkbox"><span>Enter Stop 1 in the car's navigation — this pre-warms the battery so it charges fast.</span></label></li>
+      <li><label><input type="checkbox"><span>Save Josh's cell: <b>319-631-1461</b>. Call or text at any point, for any reason.</span></label></li>
+    </ul>
+  </div>
+</section>
+
+<section id="route">
+  <div class="wrap">
+    <h2>The route</h2>
+    <p class="kicker">Three legs. Tap Navigate at each step — it opens directions from wherever you are.</p>
+
+    <div class="legs">
+
+      <div class="leg">
+        <span class="dot"></span>
+        <div class="leg-miles">START &middot; MILE 0 &middot; BATTERY 100%</div>
+        <h3>Bergstrom Toyota</h3>
+        <div class="addr">3245 S Washburn St, Oshkosh, WI</div>
+        <p class="directions">Leg 1 is easy: I-41 South to Fond du Lac, then US-151 South to Madison. In Madison, US-151 follows the Beltline — exit at <b>S. Whitney Way</b>.</p>
+        <a class="btn btn-red" href="https://www.google.com/maps/dir/?api=1&destination=Tesla+Supercharger,+675+S+Whitney+Way,+Madison,+WI+53711&travelmode=driving">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+          Navigate to Stop 1 &middot; Madison
+        </a>
+      </div>
+
+      <div class="leg">
+        <span class="dot charge"></span>
+        <div class="leg-miles">STOP 1 &middot; MILE ~95 &middot; 1 HR 35 MIN IN</div>
+        <h3>Charge in Madison — lunch stop</h3>
+        <div class="addr">Tesla Supercharger &middot; Hy-Vee lot, 675 S Whitney Way, Madison, WI</div>
+        <div class="battery"><span>Arrive ~55%</span><div class="gauge"><i style="width:57%"></i></div><span>Leave 100%</span></div>
+        <ul class="steps">
+          <li>8 stalls, 250 kW, open 24/7, open to all EVs.</li>
+          <li>In the Tesla app: <b>Charge Your Non-Tesla</b> &rarr; pick this site &rarr; pick your stall number &rarr; plug in.</li>
+          <li><b>Charge to 100%</b> — about 40 minutes. Eat lunch in the Hy-Vee while it charges.</li>
+        </ul>
+      </div>
+
+      <div class="leg">
+        <span class="dot charge"></span>
+        <div class="leg-miles">STOP 2 &middot; MILE ~260 &middot; 2 HR 35 MIN LATER</div>
+        <h3>Charge in Cedar Rapids — 15 minutes</h3>
+        <div class="addr">Tesla Supercharger &middot; Hy-Vee lot, 20 Wilson Ave SW, Cedar Rapids, IA</div>
+        <p class="directions">Leg 2 is US-151 South the whole way — Dodgeville, Platteville, Dubuque, across the Mississippi, on to Cedar Rapids. Then I-380 South one exit to <b>Wilson Ave</b>.</p>
+        <a class="btn btn-red" href="https://www.google.com/maps/dir/?api=1&destination=Tesla+Supercharger,+20+Wilson+Ave+SW,+Cedar+Rapids,+IA+52404&travelmode=driving">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+          Navigate to Stop 2 &middot; Cedar Rapids
+        </a>
+        <div class="battery"><span>Arrive ~25%</span><div class="gauge"><i style="width:27%"></i></div><span>Leave 60%</span></div>
+        <ul class="steps">
+          <li>Arriving around 25–30% is <b>normal and planned</b> — that's still ~70 miles in reserve.</li>
+          <li>Same app routine as Stop 1. <b>Charge to 60%</b> — about 15 minutes.</li>
+        </ul>
+        <div class="warn"><strong>Heads up:</strong> you pass a Supercharger in Dubuque around mile 185. It's <strong>Tesla-only — don't plan on it.</strong> You don't need it; Cedar Rapids is well within reach.</div>
+      </div>
+
+      <div class="leg">
+        <span class="dot finish"></span>
+        <div class="leg-miles">FINISH &middot; MILE ~290 &middot; ARRIVE WITH ~45%</div>
+        <h3>McGrath Toyota of Iowa City</h3>
+        <div class="addr">1445 Highway 1 West, Iowa City, IA</div>
+        <p class="directions">Leg 3 is 30 minutes: I-380 South becomes Highway 218 South, exit at <b>Highway 1 West</b>.</p>
+        <a class="btn btn-red" href="https://www.google.com/maps/dir/?api=1&destination=McGrath+Toyota+of+Iowa+City,+1445+Highway+1+West,+Iowa+City,+IA+52246&travelmode=driving">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+          Navigate to McGrath Toyota
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap">
+    <h2>Four range rules</h2>
+    <p class="kicker">Why you will not get stranded.</p>
+    <ul class="rules">
+      <li><span class="n">1</span><span>Keep it at <b>65–70 mph</b>. Speed is the only thing that meaningfully eats EV range.</span></li>
+      <li><span class="n">2</span><span>Run the AC or heat like normal. Climate control barely matters — speed does.</span></li>
+      <li><span class="n">3</span><span>The dash always shows miles remaining. If it ever reads <b>below 60 miles</b> before a planned stop: slow to 60 mph and call Josh. There are backup chargers along the route.</span></li>
+      <li><span class="n">4</span><span>The stops are placed so the battery never drops below ~25%. You're never gambling.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Full route overview: <a href="https://www.google.com/maps/dir/Bergstrom+Toyota,+3245+S+Washburn+St,+Oshkosh,+WI+54904/Tesla+Supercharger,+675+S+Whitney+Way,+Madison,+WI+53711/Tesla+Supercharger,+20+Wilson+Ave+SW,+Cedar+Rapids,+IA+52404/1445+IA-1,+Iowa+City,+IA+52246">open all stops in Google Maps</a><br><br>
+    Dealership line: <a href="tel:13197666222">319-766-6222</a> &middot; Josh Hicks, McGrath Toyota of Iowa City
+  </div>
+</footer>
+
+<div class="callbar">
+  <div class="inner">
+    <a class="call" href="tel:13196311461">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+      Call Josh
+    </a>
+    <a class="text" href="sms:13196311461">Text Josh</a>
+  </div>
+</div>
+
+</body>
+</html>
