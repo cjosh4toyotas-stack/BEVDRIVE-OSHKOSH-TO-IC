@@ -119,6 +119,19 @@
   .alt p{font-size:15.5px;margin-top:6px}
   .alt .btn{margin-top:12px}
 
+  .backups{list-style:none;margin-top:14px}
+  .backups li{
+    background:var(--panel);border-radius:10px;padding:13px 14px;
+    font-size:15px;margin-bottom:8px;line-height:1.5;
+  }
+  .bk-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .bk-mile{font-size:12.5px;font-weight:800;letter-spacing:.03em;color:var(--mut)}
+  .bk-tag{
+    font-size:12.5px;font-weight:700;border-radius:6px;padding:2px 8px;
+  }
+  .bk-tag.go{background:#E4F1E8;color:var(--ok)}
+  .bk-tag.adapter{background:#FDECEE;color:var(--red)}
+
   /* ---------- rules ---------- */
   .rules{list-style:none;margin-top:14px}
   .rules li{
@@ -261,6 +274,36 @@
   </div>
 </section>
 
+<section id="backups">
+  <div class="wrap">
+    <h2>Backup chargers</h2>
+    <p class="kicker">You should never need these. They exist so you know the planned stops aren't the only option.</p>
+    <ul class="backups">
+      <li>
+        <div class="bk-head"><span class="bk-mile">MILE ~20</span><span class="bk-tag go">Plugs straight in</span></div>
+        <b>Fond du Lac Supercharger</b> — Target lot, 485 N Rolling Meadows Dr, Fond du Lac, WI. 12 stalls, 250 kW, open to all EVs. Same app routine as the planned stops.
+      </li>
+      <li>
+        <div class="bk-head"><span class="bk-mile">MILE ~90&ndash;100</span><span class="bk-tag go">Plugs straight in</span></div>
+        <b>Madison metro</b> — hundreds of chargers within a few miles of the Beltline if Whitney Way is ever full or down. Check the Tesla app or PlugShare for the nearest open site.
+      </li>
+      <li>
+        <div class="bk-head"><span class="bk-mile">MILE ~140&ndash;185</span><span class="bk-tag go">Plugs straight in</span></div>
+        <b>Kwik Star "Kwik Charge" stations</b> — Platteville&ndash;Dubuque stretch. These carry the car's plug natively at 150 kW+. Locations vary — the PlugShare app shows which are live along US-151.
+      </li>
+      <li>
+        <div class="bk-head"><span class="bk-mile">MILE ~185</span><span class="bk-tag adapter">Adapter only</span></div>
+        <b>MidAmerican fast chargers, Dubuque</b> — different plug; only usable if the CCS adapter is in the car.
+      </li>
+      <li>
+        <div class="bk-head"><span class="bk-mile">MILE ~260</span><span class="bk-tag adapter">Adapter only</span></div>
+        <b>McGrath Chevyland &amp; McGrath CJDR, Cedar Rapids</b> — sister stores with CCS chargers; adapter required. Staff will help you plug in.
+      </li>
+    </ul>
+    <div class="reassure">If you're ever unsure which charger to use: pull over somewhere safe and call Josh. Don't drive around hunting.</div>
+  </div>
+</section>
+
 <section id="rules">
   <div class="wrap">
     <h2>Four range rules</h2>
@@ -268,7 +311,7 @@
     <ul class="rules">
       <li><span class="n">1</span><span>Keep it at <b>65–70 mph</b>. Speed is the only thing that meaningfully eats EV range.</span></li>
       <li><span class="n">2</span><span>Run the AC or heat like normal. Climate control barely matters — speed does.</span></li>
-      <li><span class="n">3</span><span>The dash always shows miles remaining. If it ever reads <b>below 60 miles</b> before a planned stop: slow to 60 mph and call Josh. There are backup chargers along the route.</span></li>
+      <li><span class="n">3</span><span>The dash always shows miles remaining. If it ever reads <b>below 60 miles</b> before a planned stop: slow to 60 mph, check the backup list above, and call Josh.</span></li>
       <li><span class="n">4</span><span>The stops are placed so the battery never drops below ~25%. You're never gambling.</span></li>
     </ul>
   </div>
